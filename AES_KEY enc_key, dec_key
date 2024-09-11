@@ -1,0 +1,26 @@
+#include <openssl/aes.h>
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    AES_KEY enc_key, dec_key;
+    unsigned char key[16] = "mysecretpassword";  // 16-byte key
+    unsigned char text[] = "welcome to CSE";
+    unsigned char enc_out[16], dec_out[16];
+
+    // Set encryption key
+    AES_set_encrypt_key(key, 128, &enc_key);
+
+    // Encrypt message
+    AES_encrypt(text, enc_out, &enc_key);
+    printf("Encrypted message: %s\n", enc_out);
+
+    // Set decryption key
+    AES_set_decrypt_key(key, 128, &dec_key);
+
+    // Decrypt message
+    AES_decrypt(enc_out, dec_out, &dec_key);
+    printf("Decrypted message: %s\n", dec_out);
+
+    return 0;
+}
